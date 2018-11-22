@@ -61,7 +61,14 @@ android {
 
 #### 支付宝支付
 ```text
-TODO
+     new RxPayHelper(activity).requestAlipay(payInfo)
+                              .subscribe(aBoolean -> {
+                                  Log.i(TAG, "阿里支付状态 :" + aBoolean);
+                                    
+                              }, throwable -> {
+                                  Log.e(TAG, "阿里支付状态 :" + throwable.toString());
+                                      
+                               });
 ```
 
 #### 微信登录
