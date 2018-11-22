@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="分享" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Weixn qq Login" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="50dp"
+        android:background="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/pay"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Weixin pay" />
+
+</LinearLayout>

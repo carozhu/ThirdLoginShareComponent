@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/qq_friend_share"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="QQ 好友分享" />
+
+    <Button
+        android:id="@+id/qq_zone_share"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="QQ 空间分享" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="50dp"
+        android:background="@color/colorPrimary" />
+
+    <Button
+        android:id="@+id/weixin_friend_share"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="weixin 好友分享" />
+
+    <Button
+        android:id="@+id/weixin_circle_share"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="weixin 空间分享" />
+</LinearLayout>

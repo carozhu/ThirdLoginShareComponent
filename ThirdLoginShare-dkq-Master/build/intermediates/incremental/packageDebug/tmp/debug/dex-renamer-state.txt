@@ -1,0 +1,4 @@
+#Thu Nov 22 14:41:34 CST 2018
+base.0=/Users/caro/android/ThirdLoginSharePay_Application/ThirdLoginShare-dkq-Master/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

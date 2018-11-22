@@ -1,0 +1,42 @@
+apply plugin: 'java-library'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9'
+    }
+}
+
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':ThirdLoginShare-annotation')
+    implementation 'com.google.auto.service:auto-service:1.0-rc4'
+    implementation 'com.squareup:javapoet:1.10.0'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+//https://github.com/novoda/bintray-release 解决了Library中依赖第三方库aar时引用不到的问题
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+publish {
+    userOrg = 'carozhu'
+    groupId = 'com.carozhu'
+    artifactId = 'ThirdLoginShare-compiler'
+    publishVersion = '1.1.0'
+    desc = 'ThirdLoginShare compiler  for weixin and QQ'
+    website = 'https://github.com/carozhu/ThirdLoginShare-compiler'
+}

@@ -1,0 +1,109 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9'
+    }
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode 3
+        versionName "1.0.2"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+                //必须配置，QQ_APPID不能为null，若没需要QQ分享登录，请下载module自行改之
+                QQ_APPID : "YOUR QQ APP_ID"
+        ]
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Rxjava2
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.3'
+
+    //腾讯移动开放平台接入需要的包。参考官网说明：http://wiki.open.qq.com/wiki/创建并配置工程 .
+    api files('libs/open_sdk_r6019_lite.jar')
+    //适用于集成了百川sdk，出现UTDID冲突
+    api files('libs/alipaySdk-15.5.7-20181023110930-noUtdid.aar')
+
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6'
+
+    implementation project(':ThirdLoginShare-annotation')
+    //implementation 'com.carozhu:ThirdLoginShare-annotation:1.0.1'
+}
+
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+//生成Javadoc文档
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+//上传到JCenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+//解决 JavaDoc 中文注释生成失败的问题
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+
+//https://github.com/novoda/bintray-release 解决了Library中依赖第三方库aar时引用不到的问题
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+publish {
+    userOrg = 'carozhu'
+    groupId = 'com.carozhu'
+    artifactId = 'ThirdLoginShareComponent'
+    publishVersion = '1.1.0'
+    desc = 'ThirdLoginShareComponent for weixin and QQ'
+    website = 'https://github.com/carozhu/ThirdLoginShareComponent'
+}
+
+

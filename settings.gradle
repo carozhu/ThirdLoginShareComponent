@@ -1,0 +1,4 @@
+include ':ThirdLoginShare-dkq-Master'
+include ':ThirdLoginShareComponent'
+include ':ThirdLoginShare-annotation'
+include ':ThirdLoginShare-compiler'

@@ -1,0 +1,66 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from : "config.gradle"
+buildscript {
+    ext.kotlin_version = '1.2.71'
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "http://dl.bintray.com/piasy/maven" }
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url "http://dl.bintray.com/piasy/maven" }
+    }
+
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet') //忽略javadoc错误
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/7/docs/api"
+        }
+    }
+}
+
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task javadoc(type: Javadoc) {
+    options.encoding = "utf-8"
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+subprojects {
+    task allDeps(type: DependencyReportTask) {}
+}
+
+//解决Task :javadoc FAILED   javadoc: 错误 - 非法的程序包名称
+subprojects {
+    tasks.withType(Javadoc).all { enabled = false }
+}

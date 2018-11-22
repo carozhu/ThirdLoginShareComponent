@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zsyj.habitcheckin"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="28" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:debuggable="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Base.MyTheme" >
+        <activity android:name="com.zsyj.habitcheckin.MainActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.zsyj.habitcheckin.WeixinQQLoginSimpleActivity" />
+        <activity android:name="com.zsyj.habitcheckin.WeixinQQShareSimpleActivity" />
+        <activity android:name="com.zsyj.habitcheckin.WeixinPaySimpleActivity" />
+
+        <meta-data
+            android:name="QQ_APPKEY"
+            android:value="\ YOUR QQ APP_ID" />
+
+        <activity
+            android:name="com.caro.thirdloginshare.QQ.QQLoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- QQ 相关 Start -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencentYOUR QQ APP_ID" />
+                <!-- <data android:scheme="tencent你的AppId" -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" /> <!-- QQ 相关 end -->
+        <!-- 微信相关 start -->
+        <activity
+            android:name="com.zsyj.habitcheckin.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="weixinAuthActivity"
+            android:theme="@style/AppCompatTheme"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.zsyj.habitcheckin.wxapi.WXPayEntryActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:theme="@style/AppCompatTheme" />
+    </application>
+
+</manifest>
