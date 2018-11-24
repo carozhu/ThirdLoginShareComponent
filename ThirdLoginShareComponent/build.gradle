@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 6
+        versionName "1.1.2"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.android.support:appcompat-v7:27.1.1'
     testImplementation 'junit:junit:4.12'
@@ -50,14 +50,18 @@ dependencies {
 
     //腾讯移动开放平台接入需要的包。参考官网说明：http://wiki.open.qq.com/wiki/创建并配置工程 .
     api files('libs/open_sdk_r6019_lite.jar')
-    //适用于集成了百川sdk，出现UTDID冲突
-    api files('libs/alipaySdk-15.5.7-20181023110930-noUtdid.aar')
+    //适用于集成了百川sdk，出现UTDID冲突 。若使用aar的方式，导致上传了jcenter仓库，implementation依赖后。出现
+    //Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Lcom/alipay/sdk/app/PayTask;
+    //故采用jar的方式使用。
+    //QAQ,若有哥们知道如何解决，请指教。
+    api files('libs/alipaySdk-20180601.jar')
+    //api files('libs/alipaySdk-15.5.7-20181023110930-noUtdid.aar')
 
+    //（适用于集成了百川sdk，出现UTDID冲突）https://docs.open.alipay.com/54/104509
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
     //api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6'
 
-    implementation project(':ThirdLoginShare-annotation')
-    //implementation 'com.carozhu:ThirdLoginShare-annotation:1.0.1'
+    api project(':ThirdLoginShare-annotation')
 }
 
 
@@ -101,7 +105,7 @@ publish {
     userOrg = 'carozhu'
     groupId = 'com.carozhu'
     artifactId = 'ThirdLoginShareComponent'
-    publishVersion = '1.1.0'
+    publishVersion = '1.1.2'
     desc = 'ThirdLoginShareComponent for weixin and QQ'
     website = 'https://github.com/carozhu/ThirdLoginShareComponent'
 }

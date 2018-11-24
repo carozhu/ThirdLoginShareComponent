@@ -8,8 +8,7 @@
 
 ```text
 在你的工程中引入
-implementation 'com.carozhu:ThirdLoginShare-annotation:1.1.0'
-implementation 'com.carozhu:ThirdLoginShareComponent:1.1.0'
+implementation 'com.carozhu:ThirdLoginShareComponent:1.1.2'
 annotationProcessor 'com.carozhu:ThirdLoginShare-compiler:1.1.0'
 ```
 
@@ -353,6 +352,15 @@ SocialHelper https://github.com/arvinljw/SocialHelper
 
 #### TODO 
 ```text
-1：支付宝登录
-2：微信分享成功与否的回调问题[目前存分享没问题]
+1：微信分享成功与否的回调问题[目前存分享没问题]
+```
+
+#### 支付宝SDK集成
+```text
+https://docs.open.alipay.com/54/104509
+适用于集成了百川sdk，出现UTDID冲突 。若使用aar的方式，导致上传了jcenter仓库，implementation依赖后。出现
+Caused by: java.lang.NoClassDefFoundError: Failed resolution of: Lcom/alipay/sdk/app/PayTask;
+故采用jar的方式使用。
+QAQ：若有哥们知道如何解决，请指教。
+
 ```
