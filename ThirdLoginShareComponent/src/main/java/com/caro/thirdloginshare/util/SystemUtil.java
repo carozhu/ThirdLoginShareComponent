@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 /**
  * Author: carozhu
  * Date  : On 2018/8/2
- * Desc  :
+ * Desc  : update Flag
  */
 public class SystemUtil {
     /**

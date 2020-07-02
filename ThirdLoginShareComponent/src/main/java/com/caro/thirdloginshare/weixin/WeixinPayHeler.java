@@ -35,6 +35,9 @@ public class WeixinPayHeler {
     }
 
     public IWXAPI getWeiXinApi() {
+        if (weiXinApi == null){
+            createWXAPI();
+        }
         return weiXinApi;
     }
 
@@ -79,6 +82,7 @@ public class WeixinPayHeler {
      *
      */
     public void weixinPay(String partnerid,String prepayid,String noncestr,String timestamp,String sign,String packageValue){
+        weiXinApi = getWeiXinApi();
         if (!weiXinApi.isWXAppInstalled()) {
             weixinPayListener.uninstallWeixin();
             return;

@@ -1,0 +1,58 @@
+def keystorePropertiesFile = rootProject.file("ThirdLoginShareComponent/mavenUpload.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+//生成源文件
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+//生成Javadoc文档
+task javadoc(type: Javadoc) {
+    options.encoding = "utf-8"
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+//文档打包成jar
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+//拷贝javadoc文件
+task copyDoc(type: Copy) {
+    from "${buildDir}/docs/"
+    into "docs"
+}
+//上传到JCenter所需要的源码文件
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+//解决 JavaDoc 中文注释生成失败的问题
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+    options.addStringOption('charSet', 'UTF-8')
+}
+
+
+//https://github.com/novoda/bintray-release 解决了Library中依赖第三方库aar时引用不到的问题
+apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+publish {
+    //userOrg = 'userOrg' //eg:carozhu
+    userOrg = keystoreProperties['userOrg']
+    //groupId = 'groupId'// eg:com.carozhu
+    groupId =  keystoreProperties['groupId']
+    //artifactId = 'ThirdLoginShareComponent'
+    artifactId = keystoreProperties['artifactId']
+    //publishVersion = 'x.y.z'
+    publishVersion = keystoreProperties['publishVersion']
+    //desc = 'ThirdLoginShareComponent for weixin and QQ'
+    desc = keystoreProperties['desc']
+    //website = 'https://github.com/carozhu/ThirdLoginShareComponent'
+    website =keystoreProperties['website']
+}

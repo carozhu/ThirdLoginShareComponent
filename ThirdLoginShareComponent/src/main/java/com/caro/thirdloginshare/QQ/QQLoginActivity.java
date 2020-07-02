@@ -54,9 +54,10 @@ public class QQLoginActivity extends Activity {
     private void qqLogin() {
         mTencent = Tencent.createInstance(QQ_APPID, this);
         String qqPackageName = "com.tencent.mobileqq";
-        //if (SystemUtil.isHaveApp(QQLoginActivity.this, qqPackageName))
+
         //if (mTencent.isQQInstalled(getApplicationContext()))
-        if (!mTencent.isSessionValid())
+        //if (!mTencent.isSessionValid()) Log.d(TAG,"onClick: "+ (mTencent.isSessionValid() ?"已登录":"未登录"));
+        if (SystemUtil.isHaveApp(QQLoginActivity.this, qqPackageName))
         {
             mTencent.login(this, "all", loginUiListener);
         } else {

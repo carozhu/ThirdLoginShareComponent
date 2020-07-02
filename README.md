@@ -8,7 +8,7 @@
 
 ```text
 在你的工程中引入
-implementation 'com.carozhu:ThirdLoginShareComponent:1.1.2'
+implementation 'com.carozhu:ThirdLoginShareComponent:1.1.6'
 annotationProcessor 'com.carozhu:ThirdLoginShare-compiler:1.1.0'
 ```
 
@@ -22,7 +22,7 @@ android {
      manifestPlaceholders = [
           QQ_APPID : "101461768"
      ]
-  
+
    }
 }
 
@@ -54,8 +54,8 @@ android {
                         Toast.makeText(context,"weixinpayCancel",Toast.LENGTH_LONG).show();
                     }
                 }).weixinPay("1","1","1","1","1","1");
-                
-        更多调用支付接口参数说明请阅读官方API文档说明 https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&index=2               
+
+        更多调用支付接口参数说明请阅读官方API文档说明 https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=9_12&index=2
 ```
 
 #### 支付宝支付
@@ -63,10 +63,10 @@ android {
      new RxPayHelper(activity).requestAlipay(payInfo)
                               .subscribe(aBoolean -> {
                                   Log.i(TAG, "阿里支付状态 :" + aBoolean);
-                                    
+
                               }, throwable -> {
                                   Log.e(TAG, "阿里支付状态 :" + throwable.toString());
-                                      
+
                                });
 ```
 
@@ -350,7 +350,7 @@ SocialHelper https://github.com/arvinljw/SocialHelper
 若已经可以跳转到拉起权限页面，查看QQ互联是否ok https://connect.qq.com/manage.html#/
 
 
-#### TODO 
+#### TODO
 ```text
 1：微信分享成功与否的回调问题[目前存分享没问题]
 ```
